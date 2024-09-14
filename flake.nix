@@ -35,6 +35,22 @@
             };
       };
 
+      packages = forEachSupportedSystem ({ pkgs }: {
+        default = pkgs.rustPlatform.buildRustPackage {
+          pname = "davyjones";
+          version = "0.1.0";
+          src = pkgs.lib.cleanSource ./.;
+          cargoLock = {
+            lockFile = ./Cargo.lock;
+          };
+          meta = {
+            description = "";
+            homepage = "https://github.com/embik/davyjones";
+            license = pkgs.lib.licenses.asl20;
+            maintainers = ["embik"];
+          };
+        };
+      });
       devShells = forEachSupportedSystem ({ pkgs }: {
         default = pkgs.mkShell {
           packages = with pkgs; [
